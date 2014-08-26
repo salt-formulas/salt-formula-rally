@@ -4,8 +4,19 @@ Rally is a Benchmark-as-a-Service project for OpenStack.
 ## Sample pillars
 
     rally:
-      server:
-        enabled: true
+    test:
+      enabled: true
+      source:
+      source:
+        engine: git
+        address: git://github.com/stackforge/rally.git
+        revision: master
+      cloud:
+        example:
+          auth_url: http://example.net:5000/v2.0/
+          username: admin
+          password: myadminpass
+          tenant_name: demo
         
 
 ## Read more

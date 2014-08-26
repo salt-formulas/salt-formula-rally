@@ -34,6 +34,20 @@ rally_install:
   - name: cd /srv/rally; ./install_rally.sh
   - require:
     - git: rally_app
-    - pip: pip_update 
+    - pip: pip_update
+
+{%- for cloud_name, cloud in test.cloud.iteritems() %}
+
+/srv/rally/{{ cloud_name }}.json:
+  file.managed:
+  - source: salt://rally/files/cloud.json
+  - template: jinja
+  - require:
+    - cmd: rally_install
+  - defaults:
+      cloud_name: "{{ cloud_name }}"
+
+
+{%- endfor %}
 
 {%- endif %}

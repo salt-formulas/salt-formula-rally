@@ -1,0 +1,10 @@
+{%- set cloud = salt['pillar.get']('rally:test:cloud:'+cloud_name) -%}
+{
+    "type": "ExistingCloud",
+    "endpoint": {
+        "auth_url": "{{ cloud.auth_url }}",
+        "username": "{{ cloud.username }}",
+        "password": "{{ cloud.password }}",
+        "tenant_name": "{{ cloud.tenant_name }}"
+    }
+}
