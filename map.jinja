@@ -1,0 +1,9 @@
+
+{% set test = salt['grains.filter_by']({
+    'Debian': {
+        'pkgs': ['python-setuptools', 'python-pip'],
+    },
+    'RedHat': {
+        'pkgs': ['python-setuptools', 'python-pip'],
+    },
+}, merge=salt['pillar.get']('rally:test')) %}
