@@ -22,10 +22,16 @@ rally_app:
     - file: rally_dir
     - pkg: git_packages
 
+pip_update:
+  pip.install:
+  - name: pip
+
+
 rally_install:
   cmd.run:
   - name: cd /srv/rally; ./install_rally.sh
   - require:
     - git: rally_app
+    - pip: pip_update 
 
 {%- endif %}
