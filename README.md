@@ -7,7 +7,6 @@ Rally is a Benchmark-as-a-Service project for OpenStack.
     test:
       enabled: true
       source:
-      source:
         engine: git
         address: git://github.com/stackforge/rally.git
         revision: master

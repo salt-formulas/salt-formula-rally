@@ -47,6 +47,12 @@ rally_install:
   - defaults:
       cloud_name: "{{ cloud_name }}"
 
+register_{{ cloud_name }}:
+  cmd.run:
+  - name: cd /srv/rally;rally deployment create --filename={{ cloud_name }}.json --name={{ cloud_name }}
+  - require:
+    - file: /srv/rally/{{ cloud_name }}.json
+
 
 {%- endfor %}
 
