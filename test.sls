@@ -23,8 +23,10 @@ rally_app:
     - pkg: git_packages
 
 pip_update:
-  pip.install:
-  - name: pip
+  pip.installed:
+    - name: pip >= 1.5.4
+    - require:
+      - pkg: python-pip
 
 
 rally_install:
