@@ -34,7 +34,7 @@ rally_install:
   - require:
     - git: rally_app
     - pip: pip_update
-  - unless: "test -e /srv/rally/rally"
+  - unless: "test -e /root/.rally/"
 
 {%- for cloud_name, cloud in test.cloud.iteritems() %}
 
