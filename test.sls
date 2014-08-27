@@ -52,6 +52,7 @@ register_{{ cloud_name }}:
   - name: cd /srv/rally;rally deployment create --filename={{ cloud_name }}.json --name={{ cloud_name }}
   - require:
     - file: /srv/rally/{{ cloud_name }}.json
+  - unless: "rally deployment list | grep {{ cloud_name }}"
 
 
 {%- endfor %}
