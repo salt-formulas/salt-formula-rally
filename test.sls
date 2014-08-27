@@ -28,13 +28,13 @@ pip_update:
     - require:
       - pkg: python-pip
 
-
 rally_install:
   cmd.run:
   - name: cd /srv/rally; ./install_rally.sh
   - require:
     - git: rally_app
     - pip: pip_update
+  - unless: "test -e /srv/rally/rally"
 
 {%- for cloud_name, cloud in test.cloud.iteritems() %}
 
@@ -49,10 +49,11 @@ rally_install:
 
 register_{{ cloud_name }}:
   cmd.run:
-  - name: cd /srv/rally;rally deployment create --filename={{ cloud_name }}.json --name={{ cloud_name }}
+  - name: rally deployment create --filename={{ cloud_name }}.json --name={{ cloud_name }}
+  - cwd: /srv/rally
   - require:
     - file: /srv/rally/{{ cloud_name }}.json
-  - unless: "rally deployment list | grep {{ cloud_name }}"
+  - unless: "cd /srv/rally; rally deployment list | grep {{ cloud_name }}"
 
 
 {%- endfor %}
