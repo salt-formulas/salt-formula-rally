@@ -38,6 +38,7 @@ Sample pillars
 Read more
 =========
 
+* https://rally.readthedocs.org/en/latest/install.html
 * https://www.mirantis.com/blog/rally-openstack-tempest-testing-made-simpler/
 * https://wiki.openstack.org/wiki/Rally
 * https://wiki.openstack.org/wiki/Rally/HowTo
