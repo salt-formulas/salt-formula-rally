@@ -1,6 +1,7 @@
+
 {%- if pillar.rally is defined %}
 include:
-{%- if pillar.rally.test is defined %}
-- rally.test
+{%- if pillar.rally.benchmark is defined %}
+- rally.benchmark
 {%- endif %}
 {%- endif %}

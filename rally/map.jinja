@@ -1,9 +1,9 @@
 
-{% set test = salt['grains.filter_by']({
+{% set benchmark = salt['grains.filter_by']({
     'Debian': {
-        'pkgs': ['python-setuptools', 'python-pip'],
+        'pkgs': ['python-setuptools', 'python-pip', 'wget', 'build-essential', 'libssl-dev', 'libffi-dev', 'python-dev', 'libpq-dev', 'libxml2-dev', 'libxslt1-dev'],
     },
     'RedHat': {
-        'pkgs': ['python-setuptools', 'python-pip'],
+        'pkgs': ['python-setuptools', 'python-pip', 'wget', 'gcc', 'libffi-devel', 'python-devel', 'openssl-devel', 'gmp-devel', 'postgresql-devel', 'libxml2-devel', 'libxslt-devel'],
     },
-}, merge=salt['pillar.get']('rally:test')) %}
+}, merge=salt['pillar.get']('rally:benchmark')) %}

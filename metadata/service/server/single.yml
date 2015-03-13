@@ -1,0 +1,17 @@
+applications:
+- rally
+parameters:
+  rally:
+    benchmark:
+      enabled: true
+      source:
+        engine: git
+        address: git://github.com/stackforge/rally.git
+        revision: master
+      database:
+        engine: mysql
+        host: ${_param:single_address}
+        port: 3306
+        name: rally
+        user: rally
+        password: ${_param:mysql_nova_password}
