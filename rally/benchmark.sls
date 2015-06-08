@@ -70,7 +70,7 @@ rally_install:
   - require:
     - cmd: rally_install
   - defaults:
-      cloud_name: "{{ provider_name }}"
+      provider_name: "{{ provider_name }}"
 
 register_{{ provider_name }}:
   cmd.run:
