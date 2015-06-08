@@ -52,7 +52,8 @@ rally_app:
 
 rally_install:
   cmd.run:
-  - name: cd /srv/rally; ./install_rally.sh
+  - name: ./install_rally.sh
+  - cwd: /srv/rally/rally
   - require:
     - git: rally_app
     - pip: pip_update
