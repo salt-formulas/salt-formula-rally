@@ -15,7 +15,7 @@ rally_conf_dir:
 
 pip_update:
   pip.installed:
-    - name: pip >= 1.5.4
+    - name: pip
     - require:
       - pkg: python-pip
     - reload_modules: true
