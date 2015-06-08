@@ -13,7 +13,7 @@ rally_conf_dir:
   file.directory:
   - name: /etc/rally
 
-pip_update:
+pip:
   pip.installed:
     - name: pip >= 1.5.4
     - require:
@@ -25,7 +25,7 @@ pip_update:
   - requirements: salt://rally/files/requirements.txt
   - require:
     - pkg: rally_packages
-    - pip: pip_update
+    - pip: pip
 
 rally_user:
   user.present:
