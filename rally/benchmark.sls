@@ -60,24 +60,24 @@ rally_install:
 
 
 
-{%- for provider_name, provider in benchmark.cloud.iteritems() %}
+{%- for provider_name, provider in benchmark.get('provider', {}).iteritems() %}
 
-/srv/rally/{{ cloud_name }}.json:
+/srv/rally/{{ provider_name }}.json:
   file.managed:
   - source: salt://rally/files/cloud.json
   - template: jinja
   - require:
     - cmd: rally_install
   - defaults:
-      cloud_name: "{{ cloud_name }}"
+      cloud_name: "{{ provider_name }}"
 
-register_{{ cloud_name }}:
+register_{{ provider_name }}:
   cmd.run:
-  - name: rally deployment create --filename={{ cloud_name }}.json --name={{ cloud_name }}
+  - name: rally deployment create --filename={{ provider_name }}.json --name={{ provider_name }}
   - cwd: /srv/rally
   - require:
-    - file: /srv/rally/{{ cloud_name }}.json
-  - unless: "cd /srv/rally; rally deployment list | grep {{ cloud_name }}"
+    - file: /srv/rally/{{ provider_name }}.json
+  - unless: "cd /srv/rally; rally deployment list | grep {{ provider_name }}"
 
 {%- endfor %}
 {%- endif %}

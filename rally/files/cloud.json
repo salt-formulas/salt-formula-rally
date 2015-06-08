@@ -1,4 +1,4 @@
-{%- set cloud = salt['pillar.get']('rally:test:cloud:'+cloud_name) -%}
+{%- set auth = salt['pillar.get']('rally:benchmark:provider:'+provider_name+':auth') -%}
 {
     "type": "ExistingCloud",
     "endpoint": {
