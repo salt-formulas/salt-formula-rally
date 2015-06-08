@@ -3,6 +3,7 @@
 
 include:
 - git
+- python
 
 rally_packages:
   pkg.installed:
