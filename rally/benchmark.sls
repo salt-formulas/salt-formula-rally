@@ -5,9 +5,22 @@ include:
 - git
 - python
 
+{# FIX broken PIP on Ubuntu 14 #}
+rally_packages_purge:
+  pkg.purged:
+  - name: 'python-pip'
+
+rally_pip_fix:
+  cmd.run:
+  - name: easy_install pip
+  - require:
+    - pkg: rally_packages_purge
+
 rally_packages:
   pkg.installed:
   - names: {{ benchmark.pkgs }}
+  - require:
+    - pkg: rally_packages_purge
 
 rally_conf_dir:
   file.directory:
@@ -15,10 +28,9 @@ rally_conf_dir:
 
 pip_update:
   pip.installed:
-    - name: pip
+    - name: pip >= 1.5.4
     - require:
       - pkg: python-pip
-    - reload_modules: true
 
 /srv/rally:
   virtualenv.manage:

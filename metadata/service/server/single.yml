@@ -1,6 +1,8 @@
 applications:
 - rally
 parameters:
+  _param:
+    mysql_rally_password: password
   rally:
     benchmark:
       enabled: true
@@ -14,4 +16,4 @@ parameters:
         port: 3306
         name: rally
         user: rally
-        password: ${_param:mysql_nova_password}
+        password: ${_param:mysql_rally_password}

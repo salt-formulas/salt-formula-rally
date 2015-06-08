@@ -1,10 +1,14 @@
 {%- set cloud = salt['pillar.get']('rally:benchmark:provider:'+provider_name+':auth') -%}
 {
     "type": "ExistingCloud",
-    "endpoint": {
-        "auth_url": "{{ cloud.auth_url }}",
+    "admin": {
         "username": "{{ cloud.username }}",
         "password": "{{ cloud.password }}",
-        "tenant_name": "{{ cloud.tenant_name }}"
-    }
+        "tenant_name": "{{ cloud.tenant_name }}",
+    },
+    "auth_url": "{{ cloud.auth_url }}",
+    "region_name": "RegionOne",
+    "endpoint_type": "public",
+    "https_insecure": True,
+    "https_cacert": "",
 }
