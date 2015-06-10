@@ -57,23 +57,24 @@ rally_app:
     - virtualenv: /srv/rally
     - pkg: git_packages
 
+{#
 /etc/rally/rally.conf:
   file.managed:
   - source: salt://rally/files/rally.conf
   - template: jinja
   - require:
     - file: rally_conf_dir
+#}
 
-
+{%- set db = benchmark.database %}
 rally_install:
   cmd.run:
-  - name: ./install_rally.sh
+  - name: ./install_rally.sh --db-name {{ db.engine }} --db-password {{ db.password }} --db-user {{ db.user }} --db-host {{ db.host }}
   - cwd: /srv/rally/rally
   - require:
     - git: rally_app
     - pip: pip_update
   - unless: "test -e /root/.rally/"
-
 
 
 {%- for provider_name, provider in benchmark.get('provider', {}).iteritems() %}
