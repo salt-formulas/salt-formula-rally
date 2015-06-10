@@ -35,6 +35,18 @@ Sample pillars
             - nova_volumes
             - neutron_networks
 
+Rally client with specified git scenarios
+
+.. code-block:: yaml
+
+    rally:
+      client:
+        enabled: true
+        source:
+          engine: git
+          address: git@repo.domain.com/heat-templates.git
+          revision: master
+
 Read more
 =========
 
