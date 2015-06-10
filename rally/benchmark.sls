@@ -9,6 +9,7 @@ include:
 rally_packages_purge:
   pkg.purged:
   - name: 'python-pip'
+  - unless: "test -e /root/.rally/"
 
 rally_pip_fix:
   cmd.run:
