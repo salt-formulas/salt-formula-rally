@@ -76,6 +76,7 @@ rally_app:
     - virtualenv: /srv/rally
     - pkg: git_packages
 
+{#
 /etc/rally/rally.conf:
   file.managed:
   - source: salt://rally/files/rally.conf
@@ -83,8 +84,8 @@ rally_app:
   - require:
     - virtualenv: /srv/rally
     - file: rally_conf_dir
+#}
 
-{#
 {%- set db = benchmark.database %}
 rally_install:
   cmd.run:
@@ -94,7 +95,6 @@ rally_install:
     - git: rally_app
     - pip: pip_update
   - unless: "test -e /root/.rally/"
-#}
 
 {%- for provider_name, provider in benchmark.get('provider', {}).iteritems() %}
 
