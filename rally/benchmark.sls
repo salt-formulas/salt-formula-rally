@@ -41,6 +41,17 @@ pip_update:
     - pkg: rally_packages
     - pip: pip_update
 
+rally_db_req:
+  pip.installed:
+    {% if benchmark.database.engine == "mysql" %}
+    - name: pymysql
+    {% else %}
+    - name: psycopg2
+    {% endif %}
+    - bin_env: /srv/rally
+    - require:
+      - virtualenv: /srv/rally
+
 rally_user:
   user.present:
   - name: rally
