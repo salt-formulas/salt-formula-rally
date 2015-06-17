@@ -57,15 +57,15 @@ rally_app:
     - virtualenv: /srv/rally
     - pkg: git_packages
 
-{#
 /etc/rally/rally.conf:
   file.managed:
   - source: salt://rally/files/rally.conf
   - template: jinja
   - require:
+    - virtualenv: /srv/rally
     - file: rally_conf_dir
-#}
 
+{#
 {%- set db = benchmark.database %}
 rally_install:
   cmd.run:
@@ -75,6 +75,7 @@ rally_install:
     - git: rally_app
     - pip: pip_update
   - unless: "test -e /root/.rally/"
+#}
 
 {%- for provider_name, provider in benchmark.get('provider', {}).iteritems() %}
 
@@ -83,13 +84,13 @@ rally_install:
   - source: salt://rally/files/cloud.json
   - template: jinja
   - require:
-    - cmd: rally_install
+    - file: /etc/rally/rally.conf
   - defaults:
       provider_name: "{{ provider_name }}"
 
 register_{{ provider_name }}:
   cmd.run:
-  - name: rally deployment create --filename={{ provider_name }}.json --name={{ provider_name }}
+  - name: . /srv/rally/bin/activate; rally deployment create --filename={{ provider_name }}.json --name={{ provider_name }}
   - cwd: /srv/rally
   - require:
     - file: /srv/rally/{{ provider_name }}.json
