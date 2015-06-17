@@ -69,13 +69,12 @@ rally_app:
 {%- set db = benchmark.database %}
 rally_install:
   cmd.run:
-  - name: ./install_rally.sh -D {{ db.engine }} --db-name {{ db.name }} --db-password {{ db.password }} --db-user {{ db.user }} --db-host {{ db.host }}
+  - name: . /srv/rally/bin/activate; ./install_rally.sh -D {{ db.engine }} --db-name {{ db.name }} --db-password {{ db.password }} --db-user {{ db.user }} --db-host {{ db.host }}
   - cwd: /srv/rally/rally
   - require:
     - git: rally_app
     - pip: pip_update
   - unless: "test -e /root/.rally/"
-
 
 {%- for provider_name, provider in benchmark.get('provider', {}).iteritems() %}
 
