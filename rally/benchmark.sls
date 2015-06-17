@@ -103,7 +103,7 @@ rally_install:
   - source: salt://rally/files/cloud.json
   - template: jinja
   - require:
-    - file: /etc/rally/rally.conf
+    - cmd: rally_install
     - virtualenv: /srv/rally
   - defaults:
       provider_name: "{{ provider_name }}"
