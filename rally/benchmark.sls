@@ -17,9 +17,15 @@ rally_pip_fix:
   - require:
     - pkg: rally_packages_purge
 
+{%- if benchmark.database.engine == "mysql" %}
+{%- set pkgs = benchmark.pkgs + ["libmysqlclient-dev"] %}
+{%- else %}
+{%- set pkgs = benchmark.pkgs %}
+{%- endif %}
+
 rally_packages:
   pkg.installed:
-  - names: {{ benchmark.pkgs }}
+  - names: {{ pkgs }}
   - require:
     - pkg: rally_packages_purge
 
@@ -44,7 +50,9 @@ pip_update:
 rally_db_req:
   pip.installed:
     {% if benchmark.database.engine == "mysql" %}
-    - name: pymysql
+    - names:
+      - pymysql
+      - MySQL-python
     {% else %}
     - name: psycopg2
     {% endif %}
@@ -96,6 +104,7 @@ rally_install:
   - template: jinja
   - require:
     - file: /etc/rally/rally.conf
+    - virtualenv: /srv/rally
   - defaults:
       provider_name: "{{ provider_name }}"
 
