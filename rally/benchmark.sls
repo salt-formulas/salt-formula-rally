@@ -5,18 +5,6 @@ include:
 - git
 - python
 
-{# FIX broken PIP on Ubuntu 14 #}
-rally_packages_purge:
-  pkg.purged:
-  - name: 'python-pip'
-  - unless: "test -e /root/.rally/"
-
-rally_pip_fix:
-  cmd.run:
-  - name: easy_install pip
-  - require:
-    - pkg: rally_packages_purge
-
 {%- if benchmark.database.engine == "mysql" %}
 {%- set pkgs = benchmark.pkgs + ["libmysqlclient-dev"] %}
 {%- else %}
@@ -26,26 +14,16 @@ rally_pip_fix:
 rally_packages:
   pkg.installed:
   - names: {{ pkgs }}
-  - require:
-    - pkg: rally_packages_purge
 
 rally_conf_dir:
   file.directory:
   - name: /etc/rally
 
-pip_update:
-  pip.installed:
-    - name: pip >= 1.5.4
-    - require:
-      - pkg: python-pip
-
 /srv/rally:
   virtualenv.manage:
-  - system_site_packages: False
   - requirements: salt://rally/files/requirements.txt
   - require:
     - pkg: rally_packages
-    - pip: pip_update
 
 rally_db_req:
   pip.installed:
@@ -93,7 +71,7 @@ rally_install:
   - cwd: /srv/rally/rally
   - require:
     - git: rally_app
-    - pip: pip_update
+    - virtualenv: /srv/rally
   - unless: "test -e /root/.rally/"
 
 {%- for provider_name, provider in benchmark.get('provider', {}).iteritems() %}
