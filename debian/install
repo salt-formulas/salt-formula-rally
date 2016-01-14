@@ -1,0 +1,2 @@
+rally/*             /usr/share/salt-formulas/env/rally/
+metadata/service/*      /usr/share/salt-formulas/reclass/service/rally/
