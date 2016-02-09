@@ -2,7 +2,6 @@ pbr>=0.11,<2.0
 tox<=1.6.1
 rally==0.2.1.dev87
 
-python-mistralclient
 python-fuelclient==6.1.0
 python-muranoclient>=0.5.5
 python-monascaclient>=1.0.22
