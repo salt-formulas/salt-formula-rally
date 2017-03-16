@@ -8,7 +8,7 @@
     },
     "auth_url": "{{ cloud.auth_url }}",
     "region_name": "RegionOne",
-    "endpoint_type": "public",
+    "endpoint_type": "{{ cloud.get('endpoint_type', 'public') }}",
     "https_insecure": True,
     "https_cacert": "",
 }

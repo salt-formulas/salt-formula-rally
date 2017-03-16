@@ -31,6 +31,7 @@ Sample pillars
               username: admin
               password: myadminpass
               tenant_name: demo
+              endpoint_type: internal
             tests:
             - nova_volumes
             - neutron_networks
