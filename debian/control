@@ -10,6 +10,6 @@ Vcs-Git: https://github.com/tcpcloud/salt-formula-rally.git
 
 Package: salt-formula-rally
 Architecture: all
-Depends: ${misc:Depends}, salt-master, reclass
+Depends: ${misc:Depends}
 Description: rally salt formula
  Install and configure rally service.
